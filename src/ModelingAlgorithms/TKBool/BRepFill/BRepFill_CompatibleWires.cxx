@@ -1315,12 +1315,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const bool WithRotation)
     }
     if (!itF.More() || !itL.More())
     {
-      // The vertex-correspondence chain in MapVLV is shorter than the section
-      // index: the polar method failed to propagate a correspondence to every
-      // section (e.g. wildly mismatched / non-coaxial closed profiles). Without
-      // this guard the iterators advance past the end of the list and
-      // itF.Value()/itL.Value() dereference a null node (Address 8) -> SIGSEGV
-      // in release builds. Fail gracefully instead.
+      // Correspondence chain shorter than the section index; fail gracefully.
       myStatus = BRepFill_ThruSectionErrorStatus_Failed;
       return;
     }
